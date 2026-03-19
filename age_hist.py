@@ -15,8 +15,21 @@ df = df.dropna(subset=['age_at_Imaging (years)'])
 df_min = df.groupby('patient_id')['age_at_Imaging (years)'].min()
 
 # Plot histogram
+import numpy as np
+import matplotlib.pyplot as plt
+
+bins = np.arange(0, 101, 10)
+
+# Get histogram data
+counts, edges = np.histogram(df_min, bins=bins)
+
 plt.figure()
-plt.hist(df_min, bins=range(0, 101, 10))  # 10-year bins
+
+# Draw bars manually with edges
+plt.bar(edges[:-1], counts,
+        width=np.diff(edges),
+        align='edge',
+        edgecolor='black')   # <-- THIS is what you want
 
 plt.xlabel("Age (years)")
 plt.ylabel("Count")
@@ -24,7 +37,5 @@ plt.title("Age Distribution")
 
 plt.grid(axis='y')
 
-# Save image
 plt.savefig("age_hist.png")
-
 plt.show()
