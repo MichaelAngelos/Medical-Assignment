@@ -20,22 +20,30 @@ import matplotlib.pyplot as plt
 
 bins = np.arange(0, 101, 10)
 
-# Get histogram data
+# Histogram data
 counts, edges = np.histogram(df_min, bins=bins)
 
 plt.figure()
 
-# Draw bars manually with edges
+# Draw bars
 plt.bar(edges[:-1], counts,
         width=np.diff(edges),
         align='edge',
-        edgecolor='black')   # <-- THIS is what you want
+        edgecolor='black')
 
-plt.xlabel("Age (years)")
+# Create range labels
+labels = [f"{int(edges[i])}-{int(edges[i+1]-1)}" for i in range(len(edges)-1)]
+
+# Set ticks at bin centers
+centers = edges[:-1] + np.diff(edges)/2
+plt.xticks(centers, labels, rotation=45)
+
+plt.xlabel("Age range")
 plt.ylabel("Count")
 plt.title("Age Distribution")
 
 plt.grid(axis='y')
 
+plt.tight_layout()
 plt.savefig("age_hist.png")
 plt.show()
