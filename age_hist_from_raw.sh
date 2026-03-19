@@ -25,7 +25,7 @@ gnuplot <<EOF
 set terminal pngcairo size 800,600
 set output "$OUT"
 
-binwidth = 5
+binwidth = 10
 bin(x,width) = width * floor(x/width)
 
 set boxwidth binwidth
