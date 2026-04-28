@@ -1,1 +1,0 @@
-folder that contains imageflownet model data
